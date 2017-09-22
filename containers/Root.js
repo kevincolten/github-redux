@@ -14,8 +14,8 @@ export default class Root extends Component {
       <Provider store={store}>
         <Router>
           <div>
-            <Route exact path="/" component={User} />
-            <Route path="/:user/:repo" component={Repo} />
+            <Route exact path="/redux-github-api/" component={User} />
+            <Route path="/redux-github-api/:user/:repo" component={Repo} />
           </div>
         </Router>
       </Provider>

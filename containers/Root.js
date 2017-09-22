@@ -5,6 +5,7 @@ import User from './User'
 import css from '../App.css'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Repo from '../containers/Repo'
+import Gist from '../containers/Gist'
 
 const store = configureStore()
 
@@ -14,8 +15,9 @@ export default class Root extends Component {
       <Provider store={store}>
         <Router>
           <div>
-            <Route exact path="/redux-github-api/" component={User} />
-            <Route path="/redux-github-api/:user/:repo" component={Repo} />
+            <Route exact path="/" component={User} />
+            <Route path="/gists/:id" component={Gist} />
+            <Route path="/repos/:user/:repo" component={Repo} />
           </div>
         </Router>
       </Provider>

@@ -7,7 +7,7 @@ function repos(props) {
     return(
       <tr key={repo.id}>
       <td>
-        <Link to={repo.full_name}>
+        <Link to={`repos/${repo.full_name}`}>
           <strong>{repo.name}</strong>
           <br />
           {repo.description}

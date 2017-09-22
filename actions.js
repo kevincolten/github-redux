@@ -5,6 +5,8 @@ const headers = {
   'User-Agent': 'kevincolten'
 }
 
+export const REQUEST_GIST = 'REQUEST_GIST'
+export const RECEIVE_GIST = 'RECEIVE_GIST'
 export const REQUEST_COMMITS = 'REQUEST_COMMITS'
 export const RECEIVE_COMMITS = 'RECEIVE_COMMITS'
 export const REQUEST_REPOS = 'REQUEST_REPOS'
@@ -13,8 +15,6 @@ export const REQUEST_USERS = 'REQUEST_USERS'
 export const RECEIVE_USERS = 'RECEIVE_USERS'
 export const REQUEST_GISTS = 'REQUEST_GISTS'
 export const RECEIVE_GISTS = 'RECEIVE_GISTS'
-export const REQUEST_USER = 'REQUEST_USER'
-export const RECEIVE_USER = 'RECEIVE_USER'
 export const SELECT_USER = 'SELECT_USER'
 
 export function selectUser(user) {
@@ -92,7 +92,7 @@ function receiveCommits(repo, commits) {
 export function fetchCommits(repo) {
   return dispatch => {
     dispatch(requestCommits(repo))
-    return fetch(`https://api.github.com/repos${repo}/commits`, { headers })
+    return fetch(`https://api.github.com${repo}/commits`, { headers })
       .then(response => response.json())
       .then(json => dispatch(receiveCommits(repo, json)))
   }
@@ -122,26 +122,25 @@ export function fetchGists(user) {
   }
 }
 
-function requestUser(user) {
+function requestGist(gist) {
   return {
-    type: REQUEST_USER,
-    user
+    type: REQUEST_GIST,
+    gist
   }
 }
 
-function receiveUser(user, json) {
+function receiveGist(gist) {
   return {
-    type: RECEIVE_USER,
-    user,
-    userData: json
+    type: RECEIVE_GIST,
+    gist
   }
 }
 
-export function fetchUserData(user) {
+export function fetchGist(gistId) {
   return dispatch => {
-    dispatch(requestGists(user))
-    return fetch(`https://api.github.com/users/${user}`, { headers })
+    dispatch(requestGists(gistId))
+    return fetch(`https://api.github.com${gistId}`, { headers })
       .then(response => response.json())
-      .then(json => dispatch(receiveUser(user, json)))
+      .then(gist => dispatch(receiveGist(gist)))
   }
 }

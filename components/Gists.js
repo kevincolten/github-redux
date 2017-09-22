@@ -1,12 +1,23 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 function gists(props) {
+  const gists = props.gists.map(gist => {
+    return (
+      <tr key={gist.id}>
+        <td>
+          <Link to={`gists/${gist.id}`}>{gist.description || 'No Description!'}</Link>
+        </td>
+      </tr>
+    )
+  })
+
   return (
     <table>
       <thead><tr><th>Gists</th></tr></thead>
       <tbody>
-        {props.gists.map(gist => <tr key={gist.id}><td>{gist.description || 'No Description!'}</td></tr>)}
+        {gists}
       </tbody>
     </table>
   )

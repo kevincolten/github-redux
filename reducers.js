@@ -7,8 +7,8 @@ import {
   RECEIVE_REPOS,
   REQUEST_GISTS,
   RECEIVE_GISTS,
-  REQUEST_USER,
-  RECEIVE_USER,
+  REQUEST_GIST,
+  RECEIVE_GIST,
   REQUEST_COMMITS,
   RECEIVE_COMMITS
 } from './actions'
@@ -68,12 +68,12 @@ function commits(state = [], action) {
   }
 }
 
-function userData(state = {}, action) {
+function gist(state = { files: {} }, action) {
   switch (action.type) {
-    case REQUEST_USER:
-      return {}
-    case RECEIVE_USER:
-      return action.userData
+    case REQUEST_GIST:
+      return { files: {} }
+    case RECEIVE_GIST:
+      return action.gist
     default:
       return state
   }
@@ -85,7 +85,7 @@ const rootReducer = combineReducers({
   gists,
   users,
   commits,
-  userData
+  gist
 })
 
 export default rootReducer

@@ -33,9 +33,11 @@ class User extends Component {
     const { selectedUser, repos, gists, userData, users } = this.props
     return (
       <div>
+        <h1 className="text-center">GitHub Browser</h1>
         <input
           ref={(input) => this.selectedUser = input}
           onChange={debounce(this.handleChange, 500)}
+          placeholder="User/Org Search"
         />
         <div id="tables">
           <Users users={users} onClick={this.handleUserClick} />
@@ -52,19 +54,17 @@ User.propTypes = {
   repos: PropTypes.array.isRequired,
   gists: PropTypes.array.isRequired,
   users: PropTypes.array.isRequired,
-  userData: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
-  const { selectedUser, repos, gists, userData, users } = state
+  const { selectedUser, repos, gists, users } = state
 
   return {
     selectedUser,
     repos,
     gists,
-    users,
-    userData
+    users
   }
 }
 

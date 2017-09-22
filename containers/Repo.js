@@ -8,7 +8,6 @@ import Commits from '../components/Commits'
 class Repo extends Component {
   constructor(props) {
     super(props)
-    console.log('here')
   }
 
   componentDidMount() {

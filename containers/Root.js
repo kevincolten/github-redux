@@ -3,18 +3,20 @@ import { Provider } from 'react-redux'
 import configureStore from '../configureStore'
 import User from './User'
 import css from '../App.css'
-import { Router, Route } from 'react-router'
-import createHistory from 'history/createBrowserHistory'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import Repo from '../containers/Repo'
 
 const store = configureStore()
-const history = createHistory()
 
 export default class Root extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Router history={history}>
-          <Route path="/" component={User} />
+        <Router>
+          <div>
+            <Route exact path="/" component={User} />
+            <Route path="/:user/:repo" component={Repo} />
+          </div>
         </Router>
       </Provider>
     )

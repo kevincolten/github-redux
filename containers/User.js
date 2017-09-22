@@ -6,15 +6,13 @@ import {
   selectUser,
   fetchRepos,
   fetchGists,
-  fetchUsers,
-  fetchUserData
+  fetchUsers
 } from '../actions'
 import Repos from '../components/Repos'
-import UserData from '../components/UserData'
 import Gists from '../components/Gists'
 import Users from '../components/Users'
 
-class AsyncApp extends Component {
+class User extends Component {
   constructor(props) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
@@ -41,7 +39,6 @@ class AsyncApp extends Component {
         />
         <div id="tables">
           <Users users={users} onClick={this.handleUserClick} />
-          {/* <UserData userData={userData} /> */}
           <Repos repos={repos} />
           <Gists gists={gists} />
         </div>
@@ -50,7 +47,7 @@ class AsyncApp extends Component {
   }
 }
 
-AsyncApp.propTypes = {
+User.propTypes = {
   selectedUser: PropTypes.string.isRequired,
   repos: PropTypes.array.isRequired,
   gists: PropTypes.array.isRequired,
@@ -71,4 +68,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(AsyncApp)
+export default connect(mapStateToProps)(User)

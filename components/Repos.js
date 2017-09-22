@@ -1,18 +1,21 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 function repos(props) {
   const repos = props.repos.map(repo => {
     return(
       <tr key={repo.id}>
       <td>
-        <strong>{repo.name}</strong>
-        <br />
-        {repo.description}
-        <br />
-        language: {repo.language}
-        <br />
-        watchers: {repo.watchers_count}&nbsp;&nbsp;forks: {repo.forks_count}
+        <Link to={repo.full_name}>
+          <strong>{repo.name}</strong>
+          <br />
+          {repo.description}
+          <br />
+          language: {repo.language}
+          <br />
+          watchers: {repo.watchers_count}&nbsp;&nbsp;forks: {repo.forks_count}
+        </Link>
       </td>
     </tr>
     )

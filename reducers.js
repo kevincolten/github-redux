@@ -9,6 +9,8 @@ import {
   RECEIVE_GISTS,
   REQUEST_USER,
   RECEIVE_USER,
+  REQUEST_COMMITS,
+  RECEIVE_COMMITS
 } from './actions'
 
 function selectedUser(state = 'kevincolten', action) {
@@ -55,6 +57,17 @@ function users(state = [], action) {
   }
 }
 
+function commits(state = [], action) {
+  switch (action.type) {
+    case REQUEST_COMMITS:
+      return []
+    case RECEIVE_COMMITS:
+      return action.commits
+    default:
+      return state
+  }
+}
+
 function userData(state = {}, action) {
   switch (action.type) {
     case REQUEST_USER:
@@ -71,6 +84,7 @@ const rootReducer = combineReducers({
   selectedUser,
   gists,
   users,
+  commits,
   userData
 })
 

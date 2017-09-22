@@ -34,6 +34,11 @@ table td img {
   margin-right: 5px;
 }
 
+table td a {
+  text-decoration: none;
+  color: black;
+}
+
 .text-center {
   text-align: center;
 }

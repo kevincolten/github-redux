@@ -5,6 +5,8 @@ const headers = {
   'User-Agent': 'kevincolten'
 }
 
+export const REQUEST_COMMITS = 'REQUEST_COMMITS'
+export const RECEIVE_COMMITS = 'RECEIVE_COMMITS'
 export const REQUEST_REPOS = 'REQUEST_REPOS'
 export const RECEIVE_REPOS = 'RECEIVE_REPOS'
 export const REQUEST_USERS = 'REQUEST_USERS'
@@ -70,7 +72,30 @@ export function fetchRepos(user) {
       .then(response => response.json())
       .then(json => dispatch(receiveRepos(user, json)))
   }
-  
+}
+
+function requestCommits(repo) {
+  return {
+    type: REQUEST_COMMITS,
+    repo
+  }
+}
+
+function receiveCommits(repo, commits) {
+  return {
+    type: RECEIVE_COMMITS,
+    repo,
+    commits
+  }
+}
+
+export function fetchCommits(repo) {
+  return dispatch => {
+    dispatch(requestCommits(repo))
+    return fetch(`https://api.github.com/repos${repo}/commits`, { headers })
+      .then(response => response.json())
+      .then(json => dispatch(receiveCommits(repo, json)))
+  }
 }
 
 function requestGists(user) {

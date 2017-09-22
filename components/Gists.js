@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 function gists(props) {
-  console.log(props)
   return (
     <table>
       <thead><tr><th>Gists</th></tr></thead>

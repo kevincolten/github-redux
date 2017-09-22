@@ -1,55 +1,47 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import debounce from 'lodash.debounce'
 import {
   selectUser,
   fetchRepos,
   fetchGists,
+  fetchUsers,
   fetchUserData
 } from '../actions'
-import Picker from '../components/Picker'
 import Repos from '../components/Repos'
 import UserData from '../components/UserData'
 import Gists from '../components/Gists'
+import Users from '../components/Users'
 
 class AsyncApp extends Component {
   constructor(props) {
     super(props)
-    // console.log(props)
     this.handleChange = this.handleChange.bind(this)
+    this.handleUserClick = this.handleUserClick.bind(this)
   }
 
-  componentDidMount() {
-    const { dispatch, selectedUser } = this.props
-    dispatch(fetchRepos(selectedUser))
-    dispatch(fetchGists(selectedUser))
-    dispatch(fetchUserData(selectedUser))
+  handleChange() {
+    this.props.dispatch(fetchUsers(this.selectedUser.value.trim()))
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.selectedUser !== prevProps.selectedUser) {
-      const { dispatch, selectedUser } = this.props
-      dispatch(fetchRepos(selectedUser))
-      dispatch(fetchGists(selectedUser))
-      dispatch(fetchUserData(selectedUser))
-    }
-  }
-
-  handleChange(nextUser) {
-    this.props.dispatch(selectUser(nextUser))
+  handleUserClick(e) {
+    const selectedUser = e.target.closest('[data-user]').getAttribute('data-user');
+    this.props.dispatch(fetchRepos(selectedUser))
+    this.props.dispatch(fetchGists(selectedUser))
   }
 
   render() {
-    const { selectedUser, repos, gists, userData } = this.props
+    const { selectedUser, repos, gists, userData, users } = this.props
     return (
       <div>
-        <Picker
-          value={selectedUser}
-          onChange={this.handleChange}
-          options={['kevincolten', 'AustinCodingAcademy']}
+        <input
+          ref={(input) => this.selectedUser = input}
+          onChange={debounce(this.handleChange, 500)}
         />
         <div id="tables">
-          <UserData userData={userData} />
+          <Users users={users} onClick={this.handleUserClick} />
+          {/* <UserData userData={userData} /> */}
           <Repos repos={repos} />
           <Gists gists={gists} />
         </div>
@@ -62,18 +54,19 @@ AsyncApp.propTypes = {
   selectedUser: PropTypes.string.isRequired,
   repos: PropTypes.array.isRequired,
   gists: PropTypes.array.isRequired,
+  users: PropTypes.array.isRequired,
   userData: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
-  // console.log(state.repos)
-  const { selectedUser, repos, gists, userData } = state
+  const { selectedUser, repos, gists, userData, users } = state
 
   return {
     selectedUser,
     repos,
     gists,
+    users,
     userData
   }
 }

@@ -7,6 +7,8 @@ const headers = {
 
 export const REQUEST_REPOS = 'REQUEST_REPOS'
 export const RECEIVE_REPOS = 'RECEIVE_REPOS'
+export const REQUEST_USERS = 'REQUEST_USERS'
+export const RECEIVE_USERS = 'RECEIVE_USERS'
 export const REQUEST_GISTS = 'REQUEST_GISTS'
 export const RECEIVE_GISTS = 'RECEIVE_GISTS'
 export const REQUEST_USER = 'REQUEST_USER'
@@ -18,6 +20,32 @@ export function selectUser(user) {
     type: SELECT_USER,
     user
   }
+}
+
+function requestUsers(userStr) {
+  return {
+    type: REQUEST_USERS,
+    userStr
+  }
+}
+
+function receiveUsers(userStr, items) {
+  return {
+    type: RECEIVE_USERS,
+    userStr,
+    users: items
+  }
+}
+
+export function fetchUsers(userStr) {
+  return dispatch => {
+    dispatch(requestUsers(userStr))
+    return fetch(`https://api.github.com/search/users?q=${userStr}`, { headers })
+      .then(response => response.json())
+      .then(json => dispatch(receiveUsers(userStr, json.items || [])))
+      .catch(e => dispatch(receiveUsers(userStr, [])))
+  }
+  
 }
 
 function requestRepos(user) {
@@ -42,6 +70,7 @@ export function fetchRepos(user) {
       .then(response => response.json())
       .then(json => dispatch(receiveRepos(user, json)))
   }
+  
 }
 
 function requestGists(user) {

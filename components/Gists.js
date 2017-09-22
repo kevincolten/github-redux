@@ -7,7 +7,7 @@ function gists(props) {
     return (
       <tr key={gist.id}>
         <td>
-          <Link to={`gists/${gist.id}`}>{gist.description || 'No Description!'}</Link>
+          <Link to={`${window.location.pathname}gists/${gist.id}`}>{gist.description || 'No Description!'}</Link>
         </td>
       </tr>
     )

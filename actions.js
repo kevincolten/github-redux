@@ -90,9 +90,10 @@ function receiveCommits(repo, commits) {
 }
 
 export function fetchCommits(repo) {
+  repo = repo.split('/').slice(-2).join('/')
   return dispatch => {
     dispatch(requestCommits(repo))
-    return fetch(`https://api.github.com${repo}/commits`, { headers })
+    return fetch(`https://api.github.com/repos/${repo}/commits`, { headers })
       .then(response => response.json())
       .then(json => dispatch(receiveCommits(repo, json)))
   }
@@ -137,9 +138,10 @@ function receiveGist(gist) {
 }
 
 export function fetchGist(gistId) {
+  gistId = gistId.split('/').slice(-1)
   return dispatch => {
     dispatch(requestGists(gistId))
-    return fetch(`https://api.github.com${gistId}`, { headers })
+    return fetch(`https://api.github.com/gists/${gistId}`, { headers })
       .then(response => response.json())
       .then(gist => dispatch(receiveGist(gist)))
   }

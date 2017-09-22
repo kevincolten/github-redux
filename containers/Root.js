@@ -15,9 +15,9 @@ export default class Root extends Component {
       <Provider store={store}>
         <Router>
           <div>
-            <Route exact path="/" component={User} />
-            <Route path="/gists/:id" component={Gist} />
-            <Route path="/repos/:user/:repo" component={Repo} />
+            <Route exact path={window.location.pathname} component={User} />
+            <Route path={`${window.location.pathname}gists/:id`} component={Gist} />
+            <Route path={`${window.location.pathname}repos/:user/:repo`} component={Repo} />
           </div>
         </Router>
       </Provider>

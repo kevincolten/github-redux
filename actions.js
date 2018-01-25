@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch'
 
 const headers = {
-  'Authorization': `Basic ${btoa('kevincolten:e14c5a32211126ea2fb991585c98d7e6fcd61c03')}`,
+  'Authorization': `Basic ${btoa('kevincolten:015d253784270720d82769bf9f313f927bd4e376')}`,
   'User-Agent': 'kevincolten'
 }
 

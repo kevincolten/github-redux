@@ -11295,7 +11295,7 @@ var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var headers = {
-  'Authorization': 'Basic ' + btoa('kevincolten:e14c5a32211126ea2fb991585c98d7e6fcd61c03'),
+  'Authorization': 'Basic ' + btoa('kevincolten:' + atob('NzYwOGE1MGJlODE3ZDY4ZWZhZWJlNzg2M2MyODM4ODczMTA1ZDlmNg==')),
   'User-Agent': 'kevincolten'
 };
 
@@ -51204,8 +51204,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var loggerMiddleware = (0, _reduxLogger.createLogger)();
 
 function configureStore(preloadedState) {
-  var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-  return (0, _redux.createStore)(_reducers2.default, preloadedState, composeEnhancers((0, _redux.applyMiddleware)(_reduxThunk2.default, loggerMiddleware)));
+  return (0, _redux.createStore)(_reducers2.default, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), preloadedState, compose((0, _redux.applyMiddleware)(_reduxThunk2.default, loggerMiddleware)));
 }
 
 /***/ }),
